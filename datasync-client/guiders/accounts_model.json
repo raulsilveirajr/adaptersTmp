@@ -1,0 +1,537 @@
+{
+  "origin_root": "accounts",
+  "origin": {
+    "accounts": {
+      "name": "accounts",
+      "primary_key": "cliente",
+      "relation": {
+        "childs": []
+      },
+      "type": "request",
+      "meta": {
+        "type": "json"
+      }
+    }
+  },
+  "destination": {
+    "BEES": {
+      "url": "https://httpbin.org/anything",
+      "body_type": "object",
+      "topic": "accounts",
+      "encapsuled": "false",
+      "marketplace_meta": {
+        "id": "1234567890",
+        "name": "BEES",
+        "version": "1.0.0"
+      },
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer %my-token%",
+        "vendor": "PIL",
+        "vendor-version": "v1",
+        "marketplace": "BEES,XYZ"
+      },
+      "pre-routine": {
+        "commands": [
+          "get_credentials('PIL', 'BEES', 'v1')",
+          "get_conversion_from_list({'BLOQUEADO': 'BLOCKED', 'VIGENTE': 'ACTIVE', '13': 'INACTIVE'}, '<<estatus>>', 'VIGENTE', 'ACTIVE')",
+          "print('pre-routine')"
+        ],
+        "meta": {
+          "_": "_"
+        }
+      },
+      "pos-routine": {
+        "commands": [
+          "get_conversion_from_list({'BLOQUEADO': 'BLOCKED', 'VIGENTE': 'ACTIVE', '13': 'INACTIVE'}, '<<estatus>>', 'VIGENTE', 'ACTIVE')",
+          "print('pre-routine')"
+        ],
+        "meta": {
+          "_": "_"
+        }
+      },
+      "mapping": [
+        {
+          "name": "vendorAccountId",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "cliente"
+            }
+          }
+        },
+        {
+          "name": "customerAccountId",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "cliente"
+            }
+          }
+        },
+        {
+          "name": "displayName",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "nombre"
+            }
+          }
+        },
+        {
+          "name": "legalName",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "nombre"
+            }
+          }
+        },
+        {
+          "name": "billingAddress",
+          "datatype": "object",
+          "mapping": [
+            {
+              "name": "address",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "column",
+                "meta": {
+                  "column": "direccion"
+                }
+              }
+            },
+            {
+              "name": "city",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "poblacion"
+                }
+              }
+            },
+            {
+              "name": "state",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "region"
+                }
+              }
+            },
+            {
+              "name": "latitude",
+              "datatype": "number",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "latitud"
+                }
+              }
+            },
+            {
+              "name": "longitude",
+              "datatype": "number",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "longitud"
+                }
+              }
+            },
+            {
+              "name": "zipcode",
+              "datatype": "expression",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "cliente",
+                "meta": {
+                  "expression": "'123456'"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "challengeIds",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "['<<cliente>>']"
+            } 
+          }
+        },
+        {
+          "name": "channel",
+          "datatype": "number",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "canal_distrib"
+            }
+          }
+        },
+        {
+          "name": "contacts",
+          "datatype": "object",
+          "mapping": [
+            {
+              "name": "type",
+              "datatype": "expression",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "cliente",
+                "meta": {
+                  "expression": "'PHONE'"
+                }
+              }
+            },
+            {
+              "name": "value",
+              "datatype": "expression",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "cliente",
+                "meta": {
+                  "expression": "str(<<telefono_1>>)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "deliveryAddress",
+          "datatype": "object",
+          "mapping": [
+            {
+              "name": "address",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "column",
+                "meta": {
+                  "column": "direccion"
+                }
+              }
+            },
+            {
+              "name": "city",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "poblacion"
+                }
+              }
+            },
+            {
+              "name": "state",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "region"
+                }
+              }
+            },
+            {
+              "name": "latitude",
+              "datatype": "number",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "latitud"
+                }
+              }
+            },
+            {
+              "name": "longitude",
+              "datatype": "number",
+              "required": true,
+              "origin": {
+                "origin_name": "addresses",
+                "type": "column",
+                "meta": {
+                  "column": "longitud"
+                }
+              }
+            },
+            {
+              "name": "zipcode",
+              "datatype": "expression",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "cliente",
+                "meta": {
+                  "expression": "'123456'"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "deliveryCenterId",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "centro_sumin"
+            }
+          }
+        },
+        {
+          "name": "deliveryRegion",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "oficina_ventas"
+            }
+          }
+        },
+        {
+          "name": "deliveryScheduleId", 
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "'<<cliente>>'+'-B2B_VD'"
+            }
+          }
+        },
+        {
+          "name": "hasPONumberRequirement",
+          "datatype": "boolean",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "value", 
+            "meta": {
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "isKeyAccount",
+          "datatype": "boolean",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "value", 
+            "meta": {
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "minimumOrder",
+          "datatype": "number",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "minimo_compra"
+            }
+          }
+        },
+        {
+          "name": "owner",
+          "datatype": "object",
+          "mapping": [
+            {
+              "name": "email",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "column",
+                "meta": {
+                  "column": "correo"
+                }
+              }
+            },
+            {
+              "name": "firstName",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "column",
+                "meta": {
+                  "column": "nombre"
+                }
+              }
+            },
+            {
+              "name": "lastName",
+              "datatype": "string",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "column",
+                "meta": {
+                  "column": "apellido_del_propietario"
+                }
+              }
+            },
+            {
+              "name": "phone",
+              "datatype": "expression",
+              "required": true,
+              "origin": {
+                "origin_name": "accounts",
+                "type": "cliente",
+                "meta": {
+                  "expression": "str(<<telefono_1>>)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "paymentMethods",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "['CASH']"
+            } 
+          }
+        },
+        {
+          "name": "termPeriods",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "[{'days': 0, 'type': 'CASH'}]"
+            } 
+          }
+        },
+        {
+          "name": "representatives",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "[{'name': '<<nombre_del_representante>>'.strip(), 'primary': True, 'role': 'SALES'}]"
+            }
+          }
+        },
+        {
+          "name": "segment",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "lista_precios"
+            }
+          }
+        },
+        {
+          "name": "subSegment",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "grupo_clientes"
+            }
+          }
+        },
+        {
+          "name": "status",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "get_conversion_from_list({'BLOQUEADO': 'BLOCKED', 'VIGENTE': 'ACTIVE', '13': 'INACTIVE'}, '<<estatus>>', 'VIGENTE', 'ACTIVE')"
+            }
+          }
+        },
+        {
+          "name": "taxId",
+          "datatype": "expression",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "cliente",
+            "meta": {
+              "expression": "str(<<n_ident_fis_1>>)"
+            }
+          }
+        },
+        {
+          "name": "priceListId",
+          "datatype": "string",
+          "required": true,
+          "origin": {
+            "origin_name": "accounts",
+            "type": "column",
+            "meta": {
+              "column": "lista_precios"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

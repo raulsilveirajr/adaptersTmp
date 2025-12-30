@@ -1,0 +1,46 @@
+server:
+  port: ${PORT:8084}
+
+environment:
+  name: ${ENVIRONMENT:development}
+
+logging:
+  level:
+    org.springframework: INFO
+    com.nttdata.bees_account_consumer.service.BeesAccountService: DEBUG
+    com.nttdata.bees_account_consumer.consumer.dto.RequestBodyDTO: INFO
+
+spring:
+  application:
+    name: bees-account-consumer
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  flyway:
+    locations: classpath:/db/migration
+    schemas: synkrono
+    baselineOnMigrate: true
+    enabled: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/synkrono?currentSchema=synkrono}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:29092}
+    consumer:
+      group-id: bees
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        auto.offset.reset: latest
+        max.poll.records: 200
+
+bees:
+  endpoints:
+    accounts:
+      url: https://httpbin.org

@@ -1,0 +1,53 @@
+{
+    "vendor": "PIL",
+    "destination": [
+      {
+        "marketplace": "BEES",
+        "marketplace_id": "1234567890",
+        "payload": {
+          "vendoraccountid": "1234567890",
+          "zone": "1234567890",
+          "address": "1234567890",
+          "city": "1234567890",
+          "state": "1234567890",
+          "zip": "1234567890",
+          "country": "1234567890",
+          "phone": "1234567890",
+          "email": "1234567890"
+        }
+      },
+      {
+        "marketplace": "amazon",
+        "marketplace_id": "abc"
+      }
+    ],
+    "payload": {
+      "vendoraccountid": "1234567890",
+      "zone": "1234567890",
+      "address": "1234567890",
+      "city": "1234567890",
+      "state": "1234567890",
+      "zip": "1234567890",
+      "country": "1234567890",
+      "phone": "1234567890",
+      "email": "1234567890"
+    },
+    "origin_data": {
+      "vendoraccountid": "1234567890",
+      "zone": "1234567890",
+      "address": "1234567890",
+      "city": "1234567890",
+      "state": "1234567890",
+      "zip": "1234567890",
+      "country": "1234567890",
+      "phone": {
+        "phone_number": "1234567890",
+        "phone_type": "abc",
+        "extension": {
+          "extension_number": "1234567890",
+          "extension_type": "abc"
+        }
+      }
+    }
+  }
+  

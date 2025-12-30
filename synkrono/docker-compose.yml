@@ -1,0 +1,116 @@
+version: '3.8'
+
+networks:
+  synkrono-net:
+    driver: bridge
+
+services:
+  synkrono_zookeeper:
+    container_name: synkrono_zookeeper
+    image: confluentinc/cp-zookeeper:7.5.0
+    ports:
+      - "22181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - synkrono-net
+
+  synkrono_kafka:
+    container_name: synkrono_kafka
+    image: confluentinc/cp-kafka:7.5.0
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: synkrono_kafka
+      KAFKA_ZOOKEEPER_CONNECT: synkrono_zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://synkrono_kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - synkrono_zookeeper
+    networks:
+      - synkrono-net
+
+  synkrono_kafka_ui:
+    container_name: synkrono_kafka_ui
+    image: provectuslabs/kafka-ui:v0.7.1
+    ports:
+      - "28080:8080"
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: synkrono_kafka:9092
+    depends_on:
+      - synkrono_kafka
+    networks:
+      - synkrono-net
+
+  synkrono-magic:
+    image: "digitsy/kafka-magic"
+    container_name: synkrono-magic
+    ports:
+      - "8081:80"
+    volumes:
+      - ./kafka_magic_data:/config
+    environment:
+      KMAGIC_ALLOW_TOPIC_DELETE: "true"
+      KMAGIC_ALLOW_SCHEMA_DELETE: "true"
+      KMAGIC_CONFIG_STORE_TYPE: "file"
+      KMAGIC_CONFIG_STORE_CONNECTION: "Data Source=/config/KafkaMagicConfig.db;"
+      KMAGIC_CONFIG_ENCRYPTION_KEY: ""
+    depends_on:
+      - synkrono_kafka
+    networks:
+      - synkrono-net
+
+  synkrono_postgres:
+    container_name: synkrono_postgres
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: synkrono
+    networks:
+      - synkrono-net
+
+  synkrono_mongo:
+    container_name: synkrono_mongo
+    image: mongo:4.2.6
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: guest
+      MONGO_INITDB_ROOT_PASSWORD: guest
+      MONGO_INITDB_DATABASE: synkrono
+    networks:
+      - synkrono-net
+
+  synkrono_rabbitmq:
+    image: rabbitmq:management
+    container_name: synkrono_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: "local-vh"
+    networks:
+      - synkrono-net
+
+  synkrono_redis:
+    image: redis:7.2
+    container_name: synkrono_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - synkrono-net

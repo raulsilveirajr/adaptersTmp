@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: synkrono
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  flyway:
+    locations: classpath:/db/migration
+    schemas: synkrono
+    baselineOnMigrate: true
+    enabled: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/synkrono?currentSchema=synkrono}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:29092}
+    producer:
+      group-id: bees
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      compression-type: snappy # Configura o tipo de compressão que deve ser aplicado às mensagens
+      acks: all # Configura o acks para "all" para garantir que todas as réplicas confirmem o recebimento da mensagem
+      retries: 3 # Configura o número de tentativas que o producer deve realizar para enviar a mensagem
+

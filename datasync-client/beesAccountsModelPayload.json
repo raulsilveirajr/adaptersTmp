@@ -1,0 +1,118 @@
+[
+  {
+    "accountId": "34521337000166",
+    "billingAddress": {
+      "address": "1ST STREET",
+      "lines": [
+        { "type": "THOROUGHFARE", "value": "Flowers Street" },
+        { "type": "COMPLEMENT", "value": "Apartment B" },
+        { "type": "NUMBER", "value": "100" },
+        { "type": "NEIGHBORHOOD", "value": "Chestnut Street District" },
+        { "type": "REFERENCE", "value": "Next to the TA gas station" }
+      ],
+      "city": "ATLANTA",
+      "latitude": "-27.677443",
+      "longitude": "-48.492509",
+      "state": "GEORGIA",
+      "zipcode": "12345-123"
+    },
+    "challengeIds": ["TODO"],
+    "channel": "TODO",
+    "contacts": [{ "type": "PHONE", "value": "+5511999999999" }],
+    "createdAt": "2022-08-24T14:15:22Z",
+    "customerAccountId": "TODO",
+    "deliveryAddress": {
+      "address": "1ST STREET",
+      "lines": [
+        { "type": "THOROUGHFARE", "value": "Flowers Street" },
+        { "type": "COMPLEMENT", "value": "Apartment B" },
+        { "type": "NUMBER", "value": "100" },
+        { "type": "NEIGHBORHOOD", "value": "Chestnut Street District" },
+        { "type": "REFERENCE", "value": "Next to the TA gas station" }
+      ],
+      "city": "ATLANTA",
+      "latitude": "-27.677443",
+      "longitude": "-48.492509",
+      "state": "GEORGIA",
+      "zipcode": "12345-123"
+    },
+    "deliveryCenterId": "04563",
+    "deliveryRegion": "TODO",
+    "deliveryRoute": "TODO",
+    "deliveryScheduleId": "0011711064",
+    "displayName": "ABC PUB",
+    "erpSalesCenter": "TODO",
+    "hasEmptiesLoan": false,
+    "hasOverprice": false,
+    "hasPONumberRequirement": false,
+    "isKeyAccount": false,
+    "legalName": "ABC PUB",
+    "liquorLicense": [
+      {
+        "description": "Class E licences (for hard-liquor manufacturing)",
+        "expirationDate": "2030-12-12",
+        "number": "248013",
+        "status": "VALID",
+        "type": "PERMANENT"
+      }
+    ],
+    "maximumOrder": {
+      "paymentMethods": ["['CASH', 'CREDIT_CARD_ONLINE', 'WALLET_POS']"],
+      "type": "PRODUCT_QUANTITY",
+      "value": 10
+    },
+    "metadata": {
+      "metadata": [
+        {
+          "objectOne": { "fieldOne": "valueOne", "fieldTwo": "valueTwo" },
+          "objectTwo": { "fieldOne": "valueOne", "fieldTwo": "valueTwo" }
+        }
+      ]
+    },
+    "minimumOrder": {
+      "paymentMethods": [
+        "['CASH', 'CREDIT_CARD_ONLINE', 'RECEIVABLES_AS_CREDIT']"
+      ],
+      "type": "ORDER_TOTAL",
+      "value": 10
+    },
+    "name": "BEES ACCOUNT",
+    "owner": {
+      "email": "ACCOUNT_OWNER@EMAIL.COM",
+      "firstName": "JOHN",
+      "lastName": "SMITH",
+      "phone": "+5511999999999"
+    },
+    "paymentMethods": ["['CASH', 'CREDIT_CARD_ONLINE', 'WALLET_ONLINE']"],
+    "paymentTerms": [{ "termPeriods": [{ "days": 4 }], "type": "CASH" }],
+    "potential": "TODO",
+    "priceListId": "TODO",
+    "representatives": [
+      {
+        "email": "VENDOR_REPRESENTATIVE@EMAIL.COM",
+        "name": "VENDOR NAME",
+        "phone": "+55119999999",
+        "primary": true,
+        "productTypes": ["Beer"],
+        "role": "SALES",
+        "supervisor": {
+          "email": "SUPERVISOR@EMAIL.COM",
+          "name": "SUPERVISOR NAME",
+          "phone": "+55119999999"
+        }
+      }
+    ],
+    "salesRepresentative": {
+      "email": "SALES_REPRESENTATIVE@EMAIL.COM",
+      "name": "string",
+      "phone": "+55119999999"
+    },
+    "salesRoute": "string",
+    "segment": "SALES NAME",
+    "status": "ACTIVE",
+    "subSegment": "TODO",
+    "taxId": "123567901-65",
+    "timezone": "America/Sao_Paulo",
+    "pickupAllowed": "false"
+  }
+]
